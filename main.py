@@ -36,18 +36,18 @@ def adicionar():
         lista_pedidos.append(3)
         b += 1
 
-    lista = f"{xbr} X-burguer     |     {xb} X-bacon     |     {b} Batata"
+    lista = f"{xbr} X-burguer    |    {xb} X-bacon    |    {b} Batata"
     
     return f"""
         <div id="Pedido">
-            <h2>Pedido:</h2>
+            <h2>Seu Pedido Atual:</h2>
             <p id="l">{lista}</p>
         </div>
         <div id="comprar">
-            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "xburguer"}}' hx-target="#pedido" hx-swap="innerHTML">X-Burguer</button>
-            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "xbacon"}}' hx-target="#pedido" hx-swap="innerHTML">X-Bacon</button>
-            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "batata"}}' hx-target="#pedido" hx-swap="innerHTML">Batata</button>
-            <a href="/formulario"><button type="button" id="finish">Finalizar Compra</button></a>
+            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "xburguer"}}' hx-target="#pedido" hx-swap="innerHTML">+ X-Burguer</button>
+            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "xbacon"}}' hx-target="#pedido" hx-swap="innerHTML">+ X-Bacon</button>
+            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "batata"}}' hx-target="#pedido" hx-swap="innerHTML">+ Batata</button>
+            <a href="/formulario"><button type="button" id="finish">Ir para o Pagamento</button></a>
         </div>
         """
 
@@ -55,9 +55,12 @@ def adicionar():
 def formulario():
     entrega_ativa = False
     taxa = 0
+    nome_usuario = ""  
     
     if request.method == "POST":
         tipo = request.form.get("tipo_recepcao")
+        nome_usuario = request.form.get("nome", "")
+        
         if tipo == "entrega":
             entrega_ativa = True
             taxa = 5
@@ -72,57 +75,64 @@ def formulario():
     subtotal = (qtd_xbr * valorxbr) + (qtd_xb * valorxb) + (qtd_b * valorb)
     total = subtotal + taxa
 
+
     bloco_conteudo = """
         <div id="resumo-pedido">
             <div id="conteudo-formulario">
-                <p>NOME COMPLETO *</p>
-                <textarea name="nome" id="nome" placeholder="Digite seu nome"></textarea>
                 
-                <p>COMO DESEJA RECEBER? *</p>
-                <div id="buttons">
-                    <div id="entrega">
-                        <button 
-                        type="button" 
-                        class="tipo_recepcao" 
-                        hx-post="/formulario"
-                        hx-vals='{"tipo_recepcao": "entrega"}'
-                        hx-target="#resumo-pedido"
-                        hx-swap="innerHTML"
-                        >Entrega</button>
-                    </div>
+                <div class="grupo-campo">
+                    <label for="nome">Qual o seu nome completo? *</label>
+                    <textarea name="nome" id="nome" placeholder="Digite seu nome aqui..." required>{{ nome }}</textarea>
+                </div>
 
-                    <div id="local">
-                        <button 
-                        type="button" 
-                        class="tipo_recepcao" 
-                        hx-post="/formulario"
-                        hx-vals='{"tipo_recepcao": "retirada"}'
-                        hx-target="#resumo-pedido"
-                        hx-swap="innerHTML"
-                        >Retirar no Local</button>
+                <div class="grupo-campo">
+                    <label>Como você prefere receber seu pedido? *</label>
+                    <div id="buttons">
+                        <div id="entrega">
+                            <button 
+                                type="button" 
+                                class="tipo_recepcao" 
+                                hx-post="/formulario"
+                                hx-include="#nome"
+                                hx-vals='{"tipo_recepcao": "entrega"}'
+                                hx-target="#resumo-pedido"
+                                hx-swap="innerHTML"
+                            >Entrega em casa</button>
+                        </div>
+
+                        <div id="local">
+                            <button 
+                                type="button" 
+                                class="tipo_recepcao" 
+                                hx-post="/formulario"
+                                hx-include="#nome"
+                                hx-vals='{"tipo_recepcao": "retirada"}'
+                                hx-target="#resumo-pedido"
+                                hx-swap="innerHTML"
+                            >Retirar no balcão</button>
+                        </div>
                     </div>
                 </div>
 
                 {% if entrega %}
-                <!-- Campo oculto para informar ao backend que é entrega -->
                 <input type="hidden" name="tipo_recepcao" value="entrega">
                 <div id="entregar">
                     <div class="p1">
                         <div id="ran">
-                            <p>Rua/Avenida *</p>
-                            <textarea placeholder="Ex: Av. Brasil" name="rua" id="rua"></textarea>
+                            <label for="rua">Rua ou Avenida *</label>
+                            <textarea placeholder="Ex: Av. Afonso Pena" name="rua" id="rua" required></textarea>
                         </div>
                         <div>
-                            <p>Número *</p>
-                            <textarea placeholder="123" name="numero" id="numero"></textarea>
+                            <label for="numero">Número *</label>
+                            <textarea placeholder="Ex: 123" name="numero" id="numero" required></textarea>
                         </div>
                     </div>
                     <div>
-                        <p>Bairro *</p>
-                        <textarea placeholder="Ex: centro" name="bairro" id="bairro"></textarea>
+                        <label for="bairro">Bairro *</label>
+                        <textarea placeholder="Ex: Centro" name="bairro" id="bairro" required></textarea>
 
-                        <p>Complemento / Ref (opcional) *</p>
-                        <textarea placeholder="Ex: Ap 102, perto da padaria" name="ref" id="ref"></textarea>
+                        <label for="ref">Ponto de Referência ou Complemento (Opcional)</label>
+                        <textarea placeholder="Ex: Apto 202, próximo à padaria" name="ref" id="ref"></textarea>
                     </div>
                 </div>
                 {% else %}
@@ -130,25 +140,27 @@ def formulario():
                 {% endif %}
             </div>
 
-            <div id="pix">
-                <h3>Chave Pix (CPF)</h3>
-                <p>000.000.000-00</p>
+            <div id="pix" class="bloco-pix">
+                <h3>Chave Pix para pagamento (CPF)</h3>
+                <p class="chave-pix">000.000.000-00</p>
             </div>
-            <h2>Subtotal: R$ {{ subtotal }}</h2>
-            <hr>
-            <h2>Taxa de entrega: R$ {{ taxa }}</h2>
-            <hr>
-            <h2>Total: R$ {{ total }}</h2>
-            
-            <!-- Botão de enviar dentro do bloco dinâmico para submeter o formulário -->
-            <button type="submit" id="enviar-pedido">Enviar Pedido no WhatsApp</button>
+
+            <div class="resumo-valores">
+                <div class="linha-valor"><span>Subtotal:</span> <strong>R$ {{ subtotal }}</strong></div>
+                <hr>
+                <div class="linha-valor"><span>Taxa de entrega:</span> <strong>R$ {{ taxa }}</strong></div>
+                <hr>
+                <div class="linha-valor total"><span>Total a pagar:</span> <strong>R$ {{ total }}</strong></div>
+            </div>
+
+            <button type="submit" id="enviar-pedido" class="botao-enviar">Enviar Pedido no WhatsApp</button>
         </div>
     """
 
     if request.headers.get("HX-Request"):
-        return render_template_string(bloco_conteudo, entrega=entrega_ativa, taxa=taxa, subtotal=subtotal, total=total)
+        return render_template_string(bloco_conteudo, entrega=entrega_ativa, taxa=taxa, subtotal=subtotal, total=total, nome=nome_usuario)
     
-    return render_template("formulario.html", entrega=entrega_ativa, subtotal=subtotal, taxa=taxa, total=total)
+    return render_template("formulario.html", entrega=entrega_ativa, subtotal=subtotal, taxa=taxa, total=total, nome=nome_usuario)
 
 
 @app.route("/finalizar", methods=["POST"])
@@ -160,13 +172,13 @@ def finalizar():
     qtd_xb = lista_pedidos.count(2)
     qtd_b = lista_pedidos.count(3)
 
-    texto_pedido = f"Olá! Meu nome é {nome}. Gostaria de pedir:\n"
+    texto_pedido = f"Olá! Me chamo {nome} e gostaria de fazer o seguinte pedido:\n\n"
     if qtd_xbr > 0:
-        texto_pedido += f"- {qtd_xbr} X-Burguer\n"
+        texto_pedido += f"- {qtd_xbr}x X-Burguer\n"
     if qtd_xb > 0:
-        texto_pedido += f"- {qtd_xb} X-Bacon\n"
+        texto_pedido += f"- {qtd_xb}x X-Bacon\n"
     if qtd_b > 0:
-        texto_pedido += f"- {qtd_b} Batata\n"
+        texto_pedido += f"- {qtd_b}x Batata\n"
 
     if tipo_recepcao == "entrega":
         rua = request.form.get("rua", "")
@@ -174,17 +186,18 @@ def finalizar():
         bairro = request.form.get("bairro", "")
         ref = request.form.get("ref", "")
         
-        texto_pedido += f"\n*Modo:* Entrega\n*Endereço:* Rua {rua}, nº {numero}, Bairro {bairro}"
+        texto_pedido += f"\nModo: Entrega em domicílio"
+        texto_pedido += f"\nEndereço: Rua {rua}, nº {numero} - Bairro {bairro}"
         if ref:
-            texto_pedido += f" (Ref: {ref})"
+            texto_pedido += f"\nReferência: {ref}"
     else:
-        texto_pedido += f"\n*Modo:* Retirada no Local"
+        texto_pedido += f"\nModo: Retirada no balcão"
 
     subtotal = (qtd_xbr * valorxbr) + (qtd_xb * valorxb) + (qtd_b * valorb)
     taxa = 5 if tipo_recepcao == "entrega" else 0
     total = subtotal + taxa
     
-    texto_pedido += f"\n*Total a pagar:* R$ {total}"
+    texto_pedido += f"\n\nTotal a pagar: R$ {total}"
 
     mensagem_url = quote(texto_pedido)
     link_whatsapp = f"https://api.whatsapp.com/send?phone={telefone}&text={mensagem_url}"

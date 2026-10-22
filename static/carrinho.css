@@ -1,190 +1,186 @@
-html {
-    scroll-behavior: smooth;
+/* Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-
     background-color: rgb(255, 239, 210);
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding-top: 80px; 
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-div {
-    padding: 5px;
+main {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
 }
 
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #222;
+}
 
+/* Formulário e Campos */
+.grupo-campo {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
 
 textarea {
-    border-radius: 8px;
-    align-items: center;
-    font-size: 18px;
-    padding: 0px;
-    height: 30px;
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
     resize: none;
-    overflow: auto;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: rgb(255, 166, 0);
+}
+
+#buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#buttons > div {
+    flex: 1;
 }
 
 .tipo_recepcao {
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    height: 250px;
-    background-color: rgba(128, 255, 0, 0);
-    color: black;
-    border-width: 3px;
-    border-style: solid;
-    border-color: black;
-    transition: 0.5s;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.tipo_recepcao:focus {
+.tipo_recepcao:hover {
+    background-color: #e2e6ea;
+}
 
-    background-color: rgba(128, 255, 0, 0.438);
-    color: green;
-    border-width: 5px;
-    border-style: solid;
-    border-color: green;
+#entregar {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd;
 }
 
 .p1 {
     display: flex;
-    flex-direction: row;
+    gap: 10px;
 }
 
-#ref {width: 350px;}
+.p1 > div {
+    flex: 1;
+}
 
-#numero {width: 70px;}
+#ran {
+    flex: 2;
+}
 
-#nome {
+.bloco-pix {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 20px 0;
+    text-align: center;
+}
 
-    align-items: center;
-    font-size: 18px;
-    padding: 0px;
-    width: 90%;
-    height: 30px;
-    resize: none;
-    overflow: auto;
+.bloco-pix h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.chave-pix {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #508359;
 }
 
 
-.tipo_recepcao {
-    color: rgb(94, 94, 94);
-    border-color: rgb(94, 94, 94);
-    width: 350px;
-    height: 250px;
+.resumo-valores {
+    margin: 20px 0;
 }
 
-button{
-    border-radius: 10px;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    font-size: 32px;
-
-}
-
-#formulario {
-    align-items: center;
-    justify-content: center;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
-    background-color: rgb(243, 243, 243);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 15px;
-}
-
-#buttons, .buttons {
+.linha-valor {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    font-size: 1rem;
+    margin: 8px 0;
+    color: #555;
 }
 
-#pix{
-    border-radius: 15px;
-    justify-content: center;
-    align-items: center;
-    margin-left: 25px;
-    width: 90%;
-    border-color: rgb(128, 255, 0);
-    border-width: 5px;
-    border-style: solid;
-    background-color: rgba(128, 255, 0, 0.438);
+.linha-valor.total {
+    font-size: 1.2rem;
+    color: #5e4e19;
 }
 
-
-p {padding: 10px;}
-
-h1,h2,h3,h4{
-    padding: 10px;
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 8px 0;
 }
 
-@media (max-width: 800px) {
-
-    #buttons{
-        justify-content: space-evenly;
-    }
-
-    .tipo_recepcao {
-        width: 150px;
-        height: 100px;
-    }
-
-
-    #formulario {
-        padding: 0px;
-        height: 1250px;
-    }
-
-    #ref {width: 350px;}
-
-    #numero {width: 70px;}
-
+.botao-enviar {
+    width: 100%;
+    padding: 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-@media (max-width: 600px) {
-    
-    
-
-    #pix{
-        width: 87%;
-        margin-left: 12px;
-    }
-
-    #buttons{
-
-        justify-content: space-evenly;
-    }
-
-    .tipo_recepcao {
-        width: 150px;
-        height: 100px;
-    }
-
-    #formulario {
-        padding: 0px;
-        height: 1200px;
-    }
-
-    #ref {width: 345px;}
-
-    #numero {width: 65px;}
-
+.botao-enviar:hover {
+    background-color: #218838;
 }
 
-@media (max-width: 500px) {
-
-    #formulario {
-        padding: 0px;
-        height: 1200px;
+@media (max-width: 480px) {
+    main {
+        padding: 15px;
     }
 
-    #ref {width: 330px;}
+    #buttons {
+        flex-direction: column;
+    }
 
-    #numero {width: 50px;}
+    .p1 {
+        flex-direction: column;
+        gap: 0;
+    }
 
-    
-
+    h1 {
+        font-size: 1.3rem;
+    }
 }

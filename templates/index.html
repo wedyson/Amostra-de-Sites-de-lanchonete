@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lanchonete Versão</title>
+</head>
+<body>
+    <main>
+        <header>
+            <div class="hover-toggle" tabindex="0">
+                <button class="toggle-label" aria-expanded="false">...</button>
+                <div class="toggle-content">
+                    <h2>Nome (Lanchonete)</h2>
+                    <hr>
+                    <a href="#Sobre_nos">Sobre nós</a>
+                    <hr>
+                    <a href="#cardapio">Cardápio</a>
+                    <hr>
+                    <a href="#rodape">Mais</a>
+                </div>
+            </div>
+            <a id="WhatsApp" href="https://wa.me/553198229269" target="_blank" rel="noopener"><h3>WhatsApp</h3></a>
+        </header>
+
+        <section id="Sobre_nos">
+            <h1>Lanchonete</h1>
+            <p> 
+                Seja bem-vindo à [Nome da lanchonete]!
+                A [nome da lanchonete] é o lugar perfeito para quem procura lanches deliciosos, ingredientes frescos e um atendimento de qualidade. Nosso objetivo é proporcionar uma experiência saborosa para toda a família, com opções para todos os gostos.
+                Preparamos nossos lanches com carinho, combinando sabores irresistíveis, qualidade e aquele toque especial de comida feita com dedicação.
+            </p>
+            <br><hr><br>
+            <h2>Onde estamos?</h2>
+            <p>
+                Estamos localizados no centro da cidade, em um ambiente acolhedor e preparado para receber você.<br><br>
+                Endereço: [Rua da lanchonete], [Numero].<br>
+                Horário de funcionamento: [Dias], [abri, fecha (horario de brasilia)].<br>
+                Telefone/WhatsApp: [Numero de celular].
+            </p>
+        </section>
+
+        <br><br>
+
+        <section id="cardapio">
+            <h2>Nosso cardápio</h2>
+            <h3>Confira algumas das nossas opções:</h3>
+
+            <div class="container-cardapio">
+                <div class="item-lanche">
+                    <div class="detalhes-lanche">
+                        <img src="../static/x-burguer.png" alt="X-Burguer" height="60px" width="90px">
+                        <p>X-Burguer: pão, hambúrguer artesanal, queijo, presunto, alface e tomate.</p>
+                    </div>
+                    <span class="valor">R$ 15,00</span>
+                </div>
+
+                <div class="item-lanche">
+                    <div class="detalhes-lanche">
+                        <img src="../static/x-bacom.png" alt="X-Bacon" height="60px" width="70px">
+                        <p>X-Bacon: hambúrguer, queijo, bacon crocante e molho especial.</p>
+                    </div>
+                    <span class="valor">R$ 18,00</span>
+                </div>
+
+                <div class="item-lanche">
+                    <div class="detalhes-lanche">
+                        <img src="../static/batata.png" alt="Batata" height="60px" width="80px">
+                        <p>Batata frita: porção crocante, perfeita para acompanhar seu lanche.</p>
+                    </div>
+                    <span class="valor">R$ 12,00</span>
+                </div>
+
+                <!-- O formulário de ações HTMX aponta corretamente para /adicionar -->
+                <form>
+                    <div id="pedido">
+                        <div id="Pedido">
+                            <h2>Pedido:</h2>
+                            <p id="l">{{ lista if lista else 'Nenhum item adicionado' }}</p>
+                        </div>
+                        <div id="comprar">
+                            <button 
+                                type="button" 
+                                class="mercadoria" 
+                                hx-post="/adicionar"
+                                hx-vals='{"produto": "xburguer"}'
+                                hx-target="#pedido"
+                                hx-swap="innerHTML"
+                            >X-Burguer</button>
+                            
+                            <button 
+                                type="button" 
+                                class="mercadoria" 
+                                hx-post="/adicionar"
+                                hx-vals='{"produto": "xbacon"}'
+                                hx-target="#pedido"
+                                hx-swap="innerHTML"
+                            >X-Bacon</button>
+                            
+                            <button 
+                                type="button" 
+                                class="mercadoria" 
+                                hx-post="/adicionar"
+                                hx-vals='{"produto": "batata"}'
+                                hx-target="#pedido"
+                                hx-swap="innerHTML"
+                            >Batata</button>
+                            {% if lista_pedidos|length != 0 %}
+                            <a href="formularioho.html"><button type="button" id="finish">Finalizar Compra</button></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer id="rodape" class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <h4>Nome da Lanchonete</h4>
+                <p>Rua , nº · Cidade · Estado</p>
+                <p>Telefone: (00) 0000-0000</p>
+            </div>
+            <nav class="footer-nav" aria-label="Links do rodapé">
+                <a href="#cardapio">Cardápio</a>
+                <a href="#Sobre_nos">Sobre</a>
+            </nav>
+            <div class="footer-right">
+                <p>Abre de ??:?? às ??:??</p>
+                <p class="copyright">© 2026 Nome da Lanchonete</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

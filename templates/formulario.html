@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="../static/carrinho.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+</head>
+<body>
+    <main>
+        <h1>Preencha o formulario</h1>
+        <section id="formulario">
+            <!-- Certifique-se de que action aponta para /finalizar e method é POST -->
+            <form action="/finalizar" method="POST">
+                
+                <div id="resumo-pedido">
+                    <div id="conteudo-formulario">
+                        <p>NOME COMPLETO *</p>
+                        <textarea name="nome" id="nome" placeholder="Digite seu nome" required></textarea>
+                        
+                        <p>COMO DESEJA RECEBER? *</p>
+                        <div id="buttons">
+                            <div id="entrega">
+                                <button 
+                                type="button" 
+                                class="tipo_recepcao" 
+                                hx-post="/formulario"
+                                hx-vals='{"tipo_recepcao": "entrega"}'
+                                hx-target="#resumo-pedido"
+                                hx-swap="innerHTML"
+                                >Entrega</button>
+                            </div>
+
+                            <div id="local">
+                                <button 
+                                type="button" 
+                                class="tipo_recepcao" 
+                                hx-post="/formulario"
+                                hx-vals='{"tipo_recepcao": "retirada"}'
+                                hx-target="#resumo-pedido"
+                                hx-swap="innerHTML"
+                                >Retirar no Local</button>
+                            </div>
+                        </div>
+
+                        {% if entrega %}
+                        <input type="hidden" name="tipo_recepcao" value="entrega">
+                        <div id="entregar">
+                            <div class="p1">
+                                <div id="ran">
+                                    <p>Rua/Avenida *</p>
+                                    <textarea placeholder="Ex: Av. Brasil" name="rua" id="rua"></textarea>
+                                </div>
+                                <div>
+                                    <p>Número *</p>
+                                    <textarea placeholder="123" name="numero" id="numero"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <p>Bairro *</p>
+                                <textarea placeholder="Ex: centro" name="bairro" id="bairro"></textarea>
+
+                                <p>Complemento / Ref (opcional) *</p>
+                                <textarea placeholder="Ex: Ap 102, perto da padaria" name="ref" id="ref"></textarea>
+                            </div>
+                        </div>
+                        {% else %}
+                        <input type="hidden" name="tipo_recepcao" value="retirada">
+                        {% endif %}
+                    </div>
+
+                    <div id="pix">
+                        <h3>Chave Pix (CPF)</h3>
+                        <p>000.000.000-00</p>
+                    </div>
+                    <h2>Subtotal: R$ {{ subtotal }}</h2>
+                    <hr>
+                    <h2>Taxa de entrega: R$ {{ taxa }}</h2>
+                    <hr>
+                    <h2>Total: R$ {{ total }}</h2>
+                    <button type="submit" id="enviar-pedido" class="buttons">Enviar Pedido</button>
+                </div>
+
+            </form>
+        </section>
+    </main>
+</body>
+</html>

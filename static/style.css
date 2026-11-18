@@ -46,10 +46,14 @@ header {
     box-sizing: border-box; 
 }
 
+#add {
+    justify-content: space-between;
+}
+
 .mercadoria {
     border-style: solid;
     color: #222;
-    width: 250px;
+    width: 50px;
     margin: 10px;
     border-width: 3px;
     border-color: rgb(185, 185, 185);
@@ -110,12 +114,11 @@ header {
 }
 
 #cardapio  {
-
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
     background-color: rgb(243, 243, 243);
     border-radius: 10px;
     padding: 20px;
-    height: 700px;
+    height: 850px;
     margin: 15px; 
 }
 
@@ -128,6 +131,7 @@ header {
 }
 
 .item-lanche {
+    padding: 10px;
     display: flex;
     justify-content: space-between; 
     align-items: center; 
@@ -159,50 +163,63 @@ h1,h2,h3,h4{
 
 @media (max-width: 800px) {
 
-    #cardapio {
-        padding: 0px;
-        height: 675px;
-    }
-
-}
-
-@media (max-width: 600px) {
-    #Pedido {
-        display: flex;
-        flex-direction: column;
+    .mercadoria {
+        width: 250px;
     }
 
     #cardapio {
         padding: 0px;
-        height: 965px;
+        height: 775px;
     }
 
-    #comprar {
-        display: flex;
-        flex-direction: column;
-    }
 
-    .item-lanche {
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 8px;
-    }
+    @media (max-width: 600px) {
+
+        .mercadoria{
+            width: 350px;
+        }
     
-    .valor {
-        align-self: flex-end; 
-    }
-}
+        #Pedido {
+            display: flex;
+            flex-direction: column;
+        }
 
-@media (max-width: 500px) {
-    #Pedido {
-        display: flex;
-        flex-direction: column;
+        #cardapio {
+            padding: 0px;
+            height: 1065px;
+        }
+
+        #comprar {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-lanche {
+            flex-direction: column; 
+            align-items: flex-start; 
+            gap: 8px;
+        }
+
+        .valor {
+            align-self: flex-end; 
+        }
     }
 
-    #cardapio {
-        padding: 0px;
-        height: 1040px;
-    }
+    @media (max-width: 500px) {
+
+        .mercadoria{
+            width: 250px;
+        }
+
+        #Pedido {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #cardapio {
+            padding: 0px;
+            height: 1140px;
+        }
 
 }
 

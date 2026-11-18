@@ -15,7 +15,6 @@
                 <div class="toggle-content">
                     <h2>Nome (Lanchonete)</h2>
                     <hr>
-                    <a href="#Sobre_nos">Sobre nós</a>
                     <hr>
                     <a href="#cardapio">Cardápio</a>
                     <hr>
@@ -24,23 +23,6 @@
             </div>
             <a id="WhatsApp" href="https://wa.me/553198229269" target="_blank" rel="noopener"><h3>WhatsApp</h3></a>
         </header>
-
-        <section id="Sobre_nos">
-            <h1>Lanchonete</h1>
-            <p> 
-                Seja bem-vindo à [Nome da lanchonete]!
-                A [nome da lanchonete] é o lugar perfeito para quem procura lanches deliciosos, ingredientes frescos e um atendimento de qualidade. Nosso objetivo é proporcionar uma experiência saborosa para toda a família, com opções para todos os gostos.
-                Preparamos nossos lanches com carinho, combinando sabores irresistíveis, qualidade e aquele toque especial de comida feita com dedicação.
-            </p>
-            <br><hr><br>
-            <h2>Onde estamos?</h2>
-            <p>
-                Estamos localizados no centro da cidade, em um ambiente acolhedor e preparado para receber você.<br><br>
-                Endereço: [Rua da lanchonete], [Numero].<br>
-                Horário de funcionamento: [Dias], [abri, fecha (horario de brasilia)].<br>
-                Telefone/WhatsApp: [Numero de celular].
-            </p>
-        </section>
 
         <br><br>
 
@@ -54,7 +36,17 @@
                         <img src="../static/x-burguer.png" alt="X-Burguer" height="60px" width="90px">
                         <p>X-Burguer: pão, hambúrguer artesanal, queijo, presunto, alface e tomate.</p>
                     </div>
+                    <div id="add">
                     <span class="valor">R$ 15,00</span>
+                        <button 
+                            type="button" 
+                            class="mercadoria" 
+                            hx-post="/adicionar"
+                            hx-vals='{"produto": "xburguer"}'
+                            hx-target="#pedido"
+                            hx-swap="innerHTML"
+                        >+</button>
+                    </div>
                 </div>
 
                 <div class="item-lanche">
@@ -62,51 +54,46 @@
                         <img src="../static/x-bacom.png" alt="X-Bacon" height="60px" width="70px">
                         <p>X-Bacon: hambúrguer, queijo, bacon crocante e molho especial.</p>
                     </div>
-                    <span class="valor">R$ 18,00</span>
+                    <div id="add">
+                        <span class="valor">R$ 18,00</span>
+                        <button
+                                    type="button"
+                                    class="mercadoria"
+                                    hx-post="/adicionar"
+                                    hx-vals='{"produto": "xbacon"}'
+                                    hx-target="#pedido"
+                                    hx-swap="innerHTML"
+                                >+</button>
+                    </div>
                 </div>
 
                 <div class="item-lanche">
                     <div class="detalhes-lanche">
                         <img src="../static/batata.png" alt="Batata" height="60px" width="80px">
                         <p>Batata frita: porção crocante, perfeita para acompanhar seu lanche.</p>
+                        
                     </div>
-                    <span class="valor">R$ 12,00</span>
+                    <div id="add">
+                        <span class="valor">R$ 12,00</span>
+                        <button
+                                    type="button"
+                                    class="mercadoria"
+                                    hx-post="/adicionar"
+                                    hx-vals='{"produto": "batata"}'
+                                    hx-target="#pedido"
+                                    hx-swap="innerHTML"
+                                >+</button>
+                    </div>
                 </div>
 
-                <!-- O formulário de ações HTMX aponta corretamente para /adicionar -->
                 <form>
                     <div id="pedido">
-                        <div id="Pedido">
+                        <div id="Pedido" style="display: flex; flex-direction: column; align-items: center; align-content: center;">
                             <h2>Pedido:</h2>
                             <p id="l">{{ lista if lista else 'Nenhum item adicionado' }}</p>
                         </div>
                         <div id="comprar">
-                            <button 
-                                type="button" 
-                                class="mercadoria" 
-                                hx-post="/adicionar"
-                                hx-vals='{"produto": "xburguer"}'
-                                hx-target="#pedido"
-                                hx-swap="innerHTML"
-                            >X-Burguer</button>
                             
-                            <button 
-                                type="button" 
-                                class="mercadoria" 
-                                hx-post="/adicionar"
-                                hx-vals='{"produto": "xbacon"}'
-                                hx-target="#pedido"
-                                hx-swap="innerHTML"
-                            >X-Bacon</button>
-                            
-                            <button 
-                                type="button" 
-                                class="mercadoria" 
-                                hx-post="/adicionar"
-                                hx-vals='{"produto": "batata"}'
-                                hx-target="#pedido"
-                                hx-swap="innerHTML"
-                            >Batata</button>
                             {% if lista_pedidos|length != 0 %}
                             <a href="formularioho.html"><button type="button" id="finish">Finalizar Compra</button></a>
                             {% endif %}

@@ -39,17 +39,13 @@ def adicionar():
     lista = f"{xbr} X-burguer    |    {xb} X-bacon    |    {b} Batata"
     
     return f"""
-        <div id="Pedido">
+        <div id="Pedido" style="display: flex; flex-direction: column; align-items: center; align-content: center;">
             <h2>Seu Pedido Atual:</h2>
             <p id="l">{lista}</p>
-        </div>
-        <div id="comprar">
-            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "xburguer"}}' hx-target="#pedido" hx-swap="innerHTML">+ X-Burguer</button>
-            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "xbacon"}}' hx-target="#pedido" hx-swap="innerHTML">+ X-Bacon</button>
-            <button type="button" class="mercadoria" hx-post="/adicionar" hx-vals='{{"produto": "batata"}}' hx-target="#pedido" hx-swap="innerHTML">+ Batata</button>
-            <a href="/formulario"><button type="button" id="finish">Ir para o Pagamento</button></a>
+            <a href="/formulario" style="margin-top: 10px; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Ir para o Formulário</a>
         </div>
         """
+
 
 @app.route("/formulario", methods=["GET", "POST"])
 def formulario():

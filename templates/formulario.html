@@ -25,6 +25,7 @@
 
                         <div class="grupo-campo">
                             <label>Como você prefere receber seu pedido? *</label>
+                            {% if not entrega %}
                             <div id="buttons">
                                 <div id="entrega">
                                     <button 
@@ -50,9 +51,10 @@
                                     >Retirar no balcão</button>
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
 
-                        <!-- Campos dinâmicos de endereço (aparecem apenas se escolher 'entrega') -->
+ 
                         {% if entrega %}
                         <input type="hidden" name="tipo_recepcao" value="entrega">
                         <div id="entregar">

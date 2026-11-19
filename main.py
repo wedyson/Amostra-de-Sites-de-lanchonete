@@ -81,34 +81,7 @@ def formulario():
                     <textarea name="nome" id="nome" placeholder="Digite seu nome aqui..." required>{{ nome }}</textarea>
                 </div>
 
-                <div class="grupo-campo">
-                    <label>Como você prefere receber seu pedido? *</label>
-                    <div id="buttons">
-                        <div id="entrega">
-                            <button 
-                                type="button" 
-                                class="tipo_recepcao" 
-                                hx-post="/formulario"
-                                hx-include="#nome"
-                                hx-vals='{"tipo_recepcao": "entrega"}'
-                                hx-target="#resumo-pedido"
-                                hx-swap="innerHTML"
-                            >Entrega em casa</button>
-                        </div>
 
-                        <div id="local">
-                            <button 
-                                type="button" 
-                                class="tipo_recepcao" 
-                                hx-post="/formulario"
-                                hx-include="#nome"
-                                hx-vals='{"tipo_recepcao": "retirada"}'
-                                hx-target="#resumo-pedido"
-                                hx-swap="innerHTML"
-                            >Retirar no balcão</button>
-                        </div>
-                    </div>
-                </div>
 
                 {% if entrega %}
                 <input type="hidden" name="tipo_recepcao" value="entrega">

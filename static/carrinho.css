@@ -150,11 +150,13 @@ hr {
 }
 
 .botao-enviar {
+
     width: 100%;
     padding: 14px;
     background-color: #28a745;
     color: white;
-    border: none;
+    border-width: 2px;
+    border-color: black;
     border-radius: 4px;
     font-size: 1rem;
     font-weight: bold;
